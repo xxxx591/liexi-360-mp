@@ -1,0 +1,15 @@
+{
+  "pages": ["pages/home/index", "pages/more/index"],
+  "window": {
+    "enableLargeWindow": true,
+    "showRefreshButton": true,
+    "windowWidth": 1640,
+    "windowHeight": 640,
+    "minWindowWidth": 400,
+    "minWindowHeight": 400,
+    "enableResize": false
+  },
+  "sdkversion": "1.0.0",
+  "sitemapLocation": "sitemap.json",
+  "store": "store/store.js"
+}

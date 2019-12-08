@@ -1,0 +1,328 @@
+<!-- 以下是组件，在vue里，是写在template的部分，se开头的组件都可在组件看板中找到说明 -->
+<div align="end">
+  <div class="home-header">
+    <div class="middle-box">
+      <div class="logo-box">
+        <router-link to="/">
+          <img src="../../public/images/home_logo.png" alt @click="activeIndex = 0" />
+        </router-link>
+      </div>
+      <div class="tab-list">
+        <ul>
+          <li v-for="(item, index) in tabList" :key="index" :class="{active:activeIndex==index}"
+            @click="changeIndex(index)">
+            <router-link :to="item.path">{{item.name}}</router-link>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+  <div class="home-index-box">
+     
+    <div class="banner1-box">
+      <div class="banner-content-box">
+        <div class="banner-3-box"></div>
+        <div class="banner-4-box"></div>
+        <!-- 立即体验 -->
+        <div class="banner-5-box"></div>
+        <div class="login-box" v-if="loginFlag">
+          <div class="login-content-box">
+            <p class="top-title">账号登陆</p>
+            <div class="user-login-box">
+              <se-input
+                placeholder="请输入手机号码"
+                prefix-icon="el-icon-user-name"
+                class="user-ipt"
+                :value="userName"
+                @change="changeSserName"
+              ></se-input>
+              <se-input
+                type="password"
+                placeholder="请输入密码"
+                prefix-icon="el-icon-user-password"
+                :value="userPassword"
+                @change="changeSserPassword"
+              ></se-input>
+            </div>
+            <div class="login-button-box">
+              <button @click="loginNow">登陆</button>
+              <!-- <el-checkbox :value="checked" fill="#B02727">下次自动登陆</el-checkbox> -->
+            </div>
+            <div class="blue-text-box">
+              <p>忘记密码</p>
+              <p @click="showregist">立即注册</p>
+            </div>
+            <!-- <div class="quick-login-box">
+              <div class="quick-login-title">免注册登录</div>
+              <div class="quick-login-icon">
+                <img src="../../public/images/login_qq.png" alt />
+                <img src="../../public/images/login_wx.png" alt />
+              </div>
+            </div> -->
+          </div>
+        </div>
+        <div class="login-box register-box" v-if="registerFlag" style="height: 600px;">
+          <div class="login-content-box">
+            <p class="top-title">用户注册</p>
+            <div class="user-login-box">
+              <se-input placeholder="请输入账号" class="user-ipt" :value="registerName"></se-input>
+              <se-input placeholder="请输入昵称" class="user-ipt" :value="registerNickName"></se-input>
+              <se-input
+                type="password"
+                class="user-ipt"
+                placeholder="请输入密码"
+                :value="registerPassword"
+              ></se-input>
+              <se-input
+                type="password"
+                class="user-ipt"
+                placeholder="再次请输入密码"
+                :value="registerPassword2"
+              ></se-input>
+              <div class="register-code-box">
+                <se-input type="password" placeholder="输入验证码" :value="code"></se-input>
+                <img src="#" alt />
+              </div>
+            </div>
+            <div class="login-button-box">
+              <button @click="registerNow">立即注册</button>
+            </div>
+            <div class="blue-text-box">
+              <p @click="showlogin">返回登陆</p>
+            </div>
+            <!-- <div class="quick-login-box">
+              <div class="quick-login-title">免注册登录</div>
+              <div class="quick-login-icon">
+                <img src="../../public/images/login_qq.png" alt />
+                <img src="../../public/images/login_wx.png" alt />
+              </div>
+            </div> -->
+          </div>
+        </div>
+        <div class="login-box longin-box-success" v-if="userFlag">
+          <div class="user-success-box">
+            <div class="img-box">
+              <img :src="userInfo.avatar" alt />
+            </div>
+            <div class="id-box">
+              <p>{{userInfo.name}}</p>
+              <!-- <p>ID：1234</p> -->
+            </div>
+            <!-- <div class="qiandao-box">签到</div> -->
+          </div>
+          <div class="user-tips-box">
+            <!-- <p>
+              <img src="../../public/images/success-icon-1.png" alt />
+              <a href="#">在线充值</a>
+            </!-->
+            <p @click="goRouter(1)">
+              <img src="../../public/images/success-icon-2.png" alt />
+              <a href="#">提交论文</a>
+            </p>
+            <p @click="goRouter(2)">
+              <img src="../../public/images/success-icon-3.png" alt />
+              <a href="#">查看报告</a>
+            </p>
+          </div>
+          <div class="user-balance-box">
+            <p>
+              <img src="../../public/images/success-icon-4.png" alt />
+              <span>账户余额：</span>
+              <span>{{userInfo.gold == -1? 0: userInfo.gold}}元</span>
+            </p>
+            <p>
+              <img src="../../public/images/kongbai.png" alt />
+              <span>免费字数：</span>
+              <span>{{userInfo.queryCount}}字</span>
+            </p>
+            <!-- <p>
+              <img src="../../public/images/kongbai.png" alt />
+              <span>付费字数：</span>
+              <span>100字</span>
+            </p>-->
+          </div>
+          <div class="login-out-btn" @click="loginOut">退出登陆</div>
+        </div>
+        <div class="tips-box">
+          <img src="../../public/images/notice_white.png" alt />
+          <p>公告：欢迎您访问猎袭网，登录之后有更多功能哦~</p>
+        </div>
+      </div>
+    </div>
+    <div class="banner2-box">
+      <div class="banner2-list-box">
+        <ul>
+          <li v-for="(item, index) in list1" :key="index">
+            <div class="div-1">
+              <i :style="{'background-image':'url('+ item.img +')'}"></i>
+            </div>
+            <div class="div-2">{{item.title}}</div>
+            <div class="div-3">{{item.content}}</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="banner3-box">
+      <div class="title-box">
+        <h3 class="title1-box">平台优势</h3>
+        <p class="title2-box">PLATFORM ADVANTAGES</p>
+      </div>
+      <div class="img-box">
+        <div class="img-box-box">
+          <div class="img-content-box" v-for="(item, index) in list2" :key="index">
+            <div>{{item.title}}</div>
+            <p>{{item.content}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="banner4-box">
+      <div class="waiceng-box">
+        <div class="title-box">
+          <h3 class="title1-box">服务对象</h3>
+          <p class="title2-box">SERVICE AIMED</p>
+        </div>
+        <div class="img-box">
+          <div class="img-box-box">
+            <div class="img-content-box" v-for="(item, index) in list3" :key="index">
+              <div>{{item.title}}</div>
+              <p>{{item.content}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="banner5-box">
+      <div class="title-box">
+        <h3 class="title1-box">一账号多终端同步使用</h3>
+        <p class="title2-box">全终端支持 体验无障碍</p>
+      </div>
+      <div class="list-box">
+        <div class="list-item-box" v-for="(item, index) in list4" :key="index">
+          <div :class="['title'+index]">
+            <i :style="{'background-image':'url('+ item.img +')'}"></i>
+            <p>{{item.title}}</p>
+          </div>
+          <p class="box-title-p">{{item.content}}</p>
+        </div>
+        <div class="list-box-img-box"></div>
+      </div>
+    </div>
+    <div class="banner6-box" v-if="false">
+      <div class="title-box">
+        <h3 class="title1-box">用户留言</h3>
+        <p class="title2-box">Feedback</p>
+      </div>
+      <div class="user-content-list">
+        <div class="tips-box1 tips-box">
+          <div v-for="(item, index) in list5[0]" :key="index" class="liuyan-box">
+            <div>
+              <img :src="item.img" alt />
+            </div>
+            <div>
+              <p class="user-tips-box">
+                <span>{{item.user}}</span>
+                ：{{item.userContent}}
+              </p>
+              <p class="admin-tips-box">客服回复：{{item.adminContent}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="tips-box2 tips-box">
+          <div v-for="(item, index) in list5[1]" :key="index" class="liuyan-box">
+            <div>
+              <img :src="item.img" alt />
+            </div>
+            <div>
+              <p class="user-tips-box">
+                <span>{{item.user}}</span>
+                ：{{item.userContent}}
+              </p>
+              <p class="admin-tips-box">客服回复：{{item.adminContent}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="tips-box3 tips-box">
+          <div v-for="(item, index) in list5[2]" :key="index" class="liuyan-box">
+            <div>
+              <img :src="item.img" alt />
+            </div>
+            <div>
+              <p class="user-tips-box">
+                <span>{{item.user}}</span>
+                ：{{item.userContent}}
+              </p>
+              <p class="admin-tips-box">客服回复：{{item.adminContent}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="banner7-box" v-if="false">
+      <div class="title-box">
+        <h3 class="title1-box">学术资讯</h3>
+        <p class="title2-box">Academic Information</p>
+      </div>
+      <div class="news-box">
+        <div class="news-list-box">
+          <div class="news-list-title">
+            <p class="list-title-1">行业新闻</p>
+            <p class="list-title-2">更多></p>
+          </div>
+          <ul>
+            <li v-for="(item, index) in newsList1" :key="index">
+              <div class="left-new">
+                <p>{{getday(item.time)}}</p>
+                <p>{{getyear(item.time)}}</p>
+              </div>
+              <div class="right-new">
+                <p>{{item.title}}</p>
+                <p>{{item.content}}</p>
+                <p>查看详情 >></p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="news-list-box">
+          <div class="news-list-title title-red">
+            <p class="list-title-1 title-red">写作技巧</p>
+            <p class="list-title-2">更多></p>
+          </div>
+          <ul>
+            <li v-for="(item, index) in newsList2" :key="index">
+              <div class="left-new">
+                <p>{{getday(item.time)}}</p>
+                <p>{{getyear(item.time)}}</p>
+              </div>
+              <div class="right-new">
+                <p>{{item.title}}</p>
+                <p>{{item.content}}</p>
+                <p class="title-red">查看详情 >></p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="banner8-box">
+      <div class="waiceng-box">
+        <div class="title-box">
+          <h3 class="title1-box">合作单位</h3>
+          <p class="title2-box">Cooperative Unit</p>
+        </div>
+        <div class="cooperation-box">
+          <img src="../../public/images/footer.png" alt />
+        </div>
+      </div>
+    </div> 
+    <se-modal :title="errorTitle" :visible.sync="visible" mask :mask-closable="false">
+      <span>{{erreoMsg}}</span>
+      <template v-slot:footer>
+        <se-button type="primary" @click="visible = false">
+          确定
+        </se-button>
+      </template>
+    </se-modal>
+  </div>
+</div>

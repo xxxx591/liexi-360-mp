@@ -1,0 +1,73 @@
+body {
+  --default-color: #13cbda;
+  font-size: 14px;
+  color: #222;
+}
+.more__navigator:hover .se-breadcrumb--link {
+  color: var(--default-color);
+}
+
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+input,
+textarea,
+p,
+blockquote,
+th,
+td {
+  margin: 0;
+  padding: 0;
+}
+div {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  box-sizing: border-box;
+ 
+}
+
+input,
+button,
+select,
+textarea {
+  outline: none; 
+  border-radius: 0;
+  background: none;
+  border: 0px;
+  outline: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+a {
+  text-decoration: none;
+}
+
+ol,
+ul,
+li {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+}

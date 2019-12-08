@@ -1,0 +1,13 @@
+{
+  "name": "liexi",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "builder watch",
+    "build": "builder build"
+  },
+  "devDependencies": {
+    "@qihoo/seapp-builder": "1.0.9",
+    "@qihoo/vue-cli-plugin-mpqh": "latest"
+  }
+}

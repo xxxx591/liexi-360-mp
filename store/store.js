@@ -34,7 +34,7 @@ module.exports = {
       let url = getRequestUrl({
         url: api.login
       });
-      qh.request({
+     return qh.request({
         url: url, // 仅为示例，并非真实的接口地址
         method: 'POST',
         dataType: 'json',

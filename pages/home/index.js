@@ -261,7 +261,7 @@ Page({
       };
 
       let data = await this.$store.dispatch("login", params);
-      // console.log(data);
+      console.log(data);
       if (data.error_code != 400) {
         console.log(data);
         sessionStorage.setItem("refresh_token", data.refresh_token);

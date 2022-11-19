@@ -7,7 +7,7 @@
     "build": "builder build"
   },
   "devDependencies": {
-    "@qihoo/seapp-builder": "1.0.9",
+    "@qihoo/seapp-builder": "1.1.9",
     "@qihoo/vue-cli-plugin-mpqh": "latest"
   }
 }
